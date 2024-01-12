@@ -1,0 +1,82 @@
+/* Add this styling to your component or create a separate CSS file */
+
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+    width: 20%;
+   
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  input {
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  button {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  #add-task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: auto; /* Add this line to center the div horizontally */
+    justify-content: space-around;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .edit{
+    background-color: rgb(33, 33, 126);
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    
+   
+  }
+  .delete{
+    background-color: rgb(131, 35, 16);
+    color: white;
+    font-weight: bold;
+    width: 100px;
+   
+  }
+  li {
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  li span {
+    flex-grow: 1; /* Allow the text to take up remaining space */
+  }
+  
+  li button {
+    margin-left: 10px;
+  }
+  
+  li .edit-button,
+  li .delete-button {
+    margin-left: auto; /* Push buttons to the end of the line */
+  }
+  
+  
+  

@@ -44,13 +44,17 @@ function ToDo() {
         <button onClick={handleClick}>{"Add task"}</button>
       </header>
 
-      <div>
+      <div id="add-task">
         <ul>
           {taskList.map((item, index) => (
             <li key={index}>
               {item}
-              <button onClick={() => edit(index)}>Edit</button>
-              <button onClick={() => deletee(index)}>Del</button>
+              <button onClick={() => edit(index)} className="edit">
+                Edit
+              </button>
+              <button onClick={() => deletee(index)} className="delete">
+                Del
+              </button>
             </li>
           ))}
         </ul>
