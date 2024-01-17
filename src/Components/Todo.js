@@ -1,66 +1,77 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-function ToDo() {
-  const [task, setTask] = useState("");
+function Todo() {
+  const [todo, setTodo] = useState("");
   const [taskList, setTaskList] = useState([]);
 
-  const handleChange = (event) => {
-    setTask(event.target.value);
-  };
-
+  function handleChange(event) {
+    setTodo(event.target.value);
+  }
   const handleClick = () => {
-    if (task === "") {
-      alert("Pleas eneter");
+    if (todo === "") {
+      alert("Please enter task");
     } else {
-      taskList.push(task);
-      console.log(taskList);
+      taskList.push(todo);
       setTaskList([...taskList]);
-      setTask("");
+      setTodo("");
     }
   };
-
-  const edit = (index) => {
-    const newValue = prompt("Enter new value", taskList[index]);
-    console.log(newValue);
-    if (newValue === "") {
-      alert("enter modified val");
-    } else {
-      const updatedTaskList = [...taskList];
-      updatedTaskList[index] = newValue;
-      setTaskList(updatedTaskList);
-    }
-  };
-
-  const deletee = (index) => {
+  function handleEdit(index) {
+    const newVal = prompt("enter val", [taskList[index]]);
+    const updatedTasks = [...taskList];
+    updatedTasks[index] = newVal;
+    setTaskList(updatedTasks);
+  }
+  function handleDelete(index) {
     const updatedTaskList = [...taskList];
     updatedTaskList.splice(index, 1);
     setTaskList(updatedTaskList);
-  };
+  }
 
   return (
-    <div>
-      <header>
-        <input type="text" value={task} onChange={handleChange} />
-        <button onClick={handleClick}>{"Add task"}</button>
+    <div id="todo-container">
+      <h1>React TO DO</h1>
+      <header className="input-wrapper">
+        <input type="text" value={todo} onChange={handleChange} />
+        {todo !== "" ? (
+          <button onClick={handleClick} className="add-button">
+            AddTask
+          </button>
+        ) : (
+          ""
+        )}
       </header>
 
-      <div id="add-task">
+      {taskList.length > 0 ? (
         <ul>
           {taskList.map((item, index) => (
-            <li key={index}>
-              {item}
-              <button onClick={() => edit(index)} className="edit">
+            <div className="todo">
+              <li key="index">{item}</li>
+              <button onClick={() => handleEdit(index)} className="edit-button">
                 Edit
               </button>
-              <button onClick={() => deletee(index)} className="delete">
-                Del
+              <button
+                onClick={() => handleDelete(index)}
+                className="delete-button"
+              >
+                Delete
               </button>
-            </li>
+            </div>
           ))}
         </ul>
-      </div>
+      ) : (
+        <p
+          style={{
+            color: "grey",
+            fontWeight: "bold",
+            fontFamily: "sans-serif",
+          }}
+        >
+          Tasks you added appear here!!
+        </p>
+      )}
     </div>
   );
 }
 
-export { ToDo };
+export default Todo;
