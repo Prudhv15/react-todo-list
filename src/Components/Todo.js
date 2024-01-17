@@ -3,25 +3,30 @@ import { useState } from "react";
 function Todo() {
   const [todo, setTodo] = useState("");
   const [taskList, setTaskList] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
 
   function handleChange(event) {
     setTodo(event.target.value);
   }
+
   const handleClick = () => {
-    if (todo === "") {
-      alert("Please enter task");
-    } else {
-      taskList.push(todo);
-      setTaskList([...taskList]);
-      setTodo("");
-    }
+    setTaskList([...taskList, todo]);
+    setTodo("");
   };
-  function handleEdit(index) {
-    const newVal = prompt("enter val", [taskList[index]]);
+
+  const handleEdit = (index) => {
+    setEditIndex(index);
+    setTodo(taskList[index]); // Set the current task as the input value
+  };
+
+  const handleSave = (index) => {
     const updatedTasks = [...taskList];
-    updatedTasks[index] = newVal;
+    updatedTasks[index] = todo;
     setTaskList(updatedTasks);
-  }
+    setEditIndex(null);
+    setTodo("");
+  };
+
   function handleDelete(index) {
     const updatedTaskList = [...taskList];
     updatedTaskList.splice(index, 1);
@@ -35,7 +40,7 @@ function Todo() {
         <input type="text" value={todo} onChange={handleChange} />
         {todo !== "" ? (
           <button onClick={handleClick} className="add-button">
-            AddTask
+            Add Task
           </button>
         ) : (
           ""
@@ -45,11 +50,18 @@ function Todo() {
       {taskList.length > 0 ? (
         <ul>
           {taskList.map((item, index) => (
-            <div className="todo">
-              <li key="index">{item}</li>
-              <button onClick={() => handleEdit(index)} className="edit-button">
-                Edit
-              </button>
+            <div className="todo" key={index}>
+              {editIndex === index ? (
+                <>
+                  <input type="text" value={todo} onChange={handleChange} />
+                  <button onClick={() => handleSave(index)}> Save</button>
+                </>
+              ) : (
+                <>
+                  <li>{item}</li>
+                  <button onClick={() => handleEdit(index)}>Edit</button>
+                </>
+              )}
               <button
                 onClick={() => handleDelete(index)}
                 className="delete-button"
@@ -60,15 +72,7 @@ function Todo() {
           ))}
         </ul>
       ) : (
-        <p
-          style={{
-            color: "grey",
-            fontWeight: "bold",
-            fontFamily: "sans-serif",
-          }}
-        >
-          Tasks you added appear here!!
-        </p>
+        <p>***</p>
       )}
     </div>
   );
