@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import Todo from "./Components/Todo.js";
 
 import "./App.css";
