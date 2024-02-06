@@ -89,7 +89,7 @@ function Todo() {
           ""
         )}
       </header>
-
+      <p>Tasks {taskList.length}</p>
       {taskList.length > 0 ? (
         <ul>
           {taskList.map((item, index) => (
