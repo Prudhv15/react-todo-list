@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 function Todo() {
   const [todo, setTodo] = useState("");
   const [editIndex, setEditIndex] = useState(null);
+  const [theme, setTheme] = useState("light");
   const [taskList, setTaskList] = useState(
     JSON.parse(localStorage.getItem("taskList")) || []
   );
@@ -10,6 +11,11 @@ function Todo() {
   useEffect(() => {
     localStorage.setItem("tasklist", JSON.stringify(taskList));
   }, [taskList]);
+
+  useEffect(() => {
+    document.documentElement.removeAttribute("class");
+    document.documentElement.classList.add(theme);
+  }, [theme]);
 
   function handleChange(event) {
     setTodo(event.target.value);
@@ -42,6 +48,33 @@ function Todo() {
   return (
     <div id="todo-container">
       <h1>React TO DO</h1>
+      <span className="themeSelector">
+        <span
+          onClick={() => setTheme("light")}
+          className={theme === "light" ? "light activeTheme" : "light"}
+        ></span>
+        <span
+          onClick={() => setTheme("medium")}
+          className={theme === "medium" ? "medium activeTheme" : "medium"}
+        ></span>
+        <span
+          onClick={() => setTheme("dark")}
+          className={theme === "dark" ? "dark activeTheme" : "dark"}
+        ></span>
+        <span
+          onClick={() => setTheme("gOne")}
+          className={theme === "gOne" ? "gOne activeTheme" : "gOne"}
+        ></span>
+        <span
+          onClick={() => setTheme("gTwo")}
+          className={theme === "gTwo" ? "gTwo activeTheme" : "gTwo"}
+        ></span>
+        <span
+          onClick={() => setTheme("gThree")}
+          className={theme === "gThree" ? "gThree activeTheme" : "gThree"}
+        ></span>
+      </span>
+
       <header className="input-wrapper">
         <input
           type="text"
