@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Todo() {
   const [todo, setTodo] = useState("");
-  const [taskList, setTaskList] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
+  const [taskList, setTaskList] = useState(
+    JSON.parse(localStorage.getItem("taskList")) || []
+  );
+
+  useEffect(() => {
+    localStorage.setItem("tasklist", JSON.stringify(taskList));
+  }, [taskList]);
 
   function handleChange(event) {
     setTodo(event.target.value);
@@ -37,7 +43,11 @@ function Todo() {
     <div id="todo-container">
       <h1>React TO DO</h1>
       <header className="input-wrapper">
-        <input type="text" value={todo} onChange={handleChange} />
+        <input
+          type="text"
+          value={editIndex !== null ? "" : todo}
+          onChange={handleChange}
+        />
         {todo !== "" ? (
           <button onClick={handleClick} className="add-button">
             Add Task
